@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color-scheme: light dark;
+  --primary-color: #fffae3;
+  --secondary-color: #282e36;
+  --pending-color: #ffe42e;
+  --progress-color: #9dff2e;
+  --delayed-color: #ff602e;
+
+  color: var(--primary-color);
+  background: var(--secondary-color);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px 0 0 10px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+  --primary-color: #282e36;
+  --secondary-color: #fffae3;
+  }
+}
