@@ -1,4 +1,4 @@
-export enum TaskStatus {
+export enum TodoStatus {
     PENDING = "PENDING",
     COMPLETED = "COMPLETED",
     IN_PROGRESS = "IN_PROGRESS"
@@ -33,7 +33,7 @@ export class TodoItem {
     // Método para converter um objeto JSON em uma instância de TodoItem
     static fromJSON(json: any): TodoItem {
         const date = new Date(json.date);
-        const status = json.status as TaskStatus; // Assegura que o status é do tipo TaskStatus
+        const status = json.status as TodoStatus; // Assegura que o status é do tipo TaskStatus
         const tasks = json.tasks.map(Task.fromJSON); // Mapeia as tarefas para instâncias de Task
         return new TodoItem(date, status, tasks);
     }
