@@ -10,7 +10,7 @@ import FloatingMenu from "./components/floatingMenu/FloatingMenu";
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FloatingMenu />
-    <BrowserRouter>
+    <BrowserRouter basename="/dev-notepad">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/insert" element={<Insert />} />
