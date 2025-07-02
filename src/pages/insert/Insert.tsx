@@ -1,12 +1,14 @@
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {TodoList, todoFromJson, Task, TodoItem} from "../../todo";
-import { useState, useEffect, createRef, useRef } from "react";
+import { useState, useEffect} from "react";
+import { TiArrowBack } from "react-icons/ti";
 import "./Insert.css"
 
 function Insert(){
     const [jsonData, setJsonData] = useState<TodoList>();
     const [tasks, setTasks] = useState<Task[]>([{content: "", status: false}]);
-    const [date, setDate] = useState<string>('0001-01-01');
+    const [date, setDate] = useState<string>('');
+    const navigate = useNavigate()
 
     const handleTaskContentChange = (content, index) => {
         const newTasks = [...tasks];
@@ -48,6 +50,7 @@ function Insert(){
         const todo = new TodoItem(date, status, tasksList);
         jsonData.TODO.push(todo);
         localStorage.setItem("backup", JSON.stringify(jsonData));
+        navigate("/")
     };
 
     useEffect(() => {
@@ -61,30 +64,30 @@ function Insert(){
 
     return (
         <>
-            <Link to="/" className="newTodo" onClick={() => handleSaveTodo()}>
-                Voltar
-            </Link>
-            <span id="todoStatus">STATUS: NEW</span>
             <header>
+                <TiArrowBack id="return" onClick={() => handleSaveTodo()}/>
                 <input id="data" name="data" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <span id="todoStatus">STATUS: NEW</span>
             </header>
             <div id="task-list">
                 {tasks.map((task, index) => (
                     <div key={index} className="task-container">
                         <input
                             type="checkbox"
+                            className="check-box-task"
                             checked={task.status}
                             onChange={( ) => handleTaskStatusChange(index)}
                         />
                         <input
                             type="text"
+                            className="task"
                             value={task.content}
                             onChange={(e) => handleTaskContentChange(e.target.value, index)}
                         />
-                        <button onClick={() => handleDeleteTask(index)}>delete</button>
+                        <button className="classic-btn" onClick={() => handleDeleteTask(index)}>delete</button>
                     </div>
                 ))}
-                <button onClick={() => handleAddTask()}>+ TASK</button>
+                <button className="classic-btn" onClick={() => handleAddTask()}>+ TASK</button>
             </div>
         </>
     );

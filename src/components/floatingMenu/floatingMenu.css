@@ -32,7 +32,7 @@
     display: none;
 }
 
-input:checked ~ #labelMenu {
+#menuBtn:checked ~ #labelMenu {
     rotate: 0deg;
     background-color: var(--primary-color);
 }

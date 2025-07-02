@@ -3,6 +3,7 @@ import "./Home.css";
 import SvgComponent from "../../assets/SvgComponent";
 import {TodoList, todoFromJson} from "../../todo";
 import {Link} from "react-router-dom";
+import SideMenu from "../../components/sideMenu/SideMenu";
 
 function Home() {
   const [jsonData, setJsonData] = useState<TodoList>( );
@@ -45,11 +46,12 @@ useEffect(() => {
 
   return (
     <>
+        <SideMenu />
       <div className="logo">
         <SvgComponent className="dev" />
         <span>NOTE PAD</span>
       </div>
-      <Link to="/insert" className="newTodo">+ TO-DO-LIST</Link>
+      <Link to="/insert" className="classic-btn">+ TO-DO-LIST</Link>
       <br />
       <input type="file" accept="application/json" onChange={(e) => handleUploadBackup(e)} id="backupInput"/>
       <label htmlFor="backupInput" id="backupLabel">upload de backup</label>

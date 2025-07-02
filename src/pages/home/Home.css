@@ -31,7 +31,7 @@
   line-height: 0;
 }
 
-.newTodo {
+.classic-btn {
   border: 2px solid var(--primary-color);
   border-radius: 100px;
   color: var(--primary-color);
@@ -44,12 +44,12 @@
   text-decoration: none;
 }
 
-.newTodo:hover {
+.classic-btn:hover {
   color: var(--secondary-color);
   background:  var(--primary-color);
 }
 
-.newTodo:active {
+.classic-btn:active {
   opacity: 0.5;
 }
 
