@@ -16,7 +16,7 @@
   gap: 20px;
 }
 
-.dev {
+.logo > :not(span) {
   height: 100%;
   width: 100%;
 }

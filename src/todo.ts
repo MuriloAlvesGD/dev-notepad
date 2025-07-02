@@ -39,13 +39,9 @@ export class TodoList {
     constructor(todoItems: TodoItem[]) {
         this.TODO = todoItems;
     }
-
-    teste():string{
-        return "teste abcd"
-    }
 }
 
-export function todoFromJson(json: string): TodoList {
+export function todoFromJson(json: any): TodoList {
         const todoItems = JSON.parse(json).TODO.map(TodoItem.fromJSON); // Mapeia os itens para instâncias de TodoItem
         return new TodoList(todoItems);
     }

@@ -1,29 +1,29 @@
-import "./SideMenu.css"
+import "./SideMenu.css";
 import { RxCross2 } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {useState, useEffect} from "react";
-import {TodoList, todoFromJson} from "../../todo";
-import { FaFlag } from "react-icons/fa6";
-import { FaRegFlag } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import { TodoList, todoFromJson } from "../../todo";
+import { FaFlag, FaRegFlag } from "react-icons/fa6";
 import { TbTrashXFilled } from "react-icons/tb";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function SideMenu(){
+function SideMenu() {
     const [checked, setChecked] = useState<boolean>(false);
     const [jsonData, setJsonData] = useState<TodoList>();
     const navigate = useNavigate();
     const [reload, setReload] = useState<boolean>(false);
 
-    const handleTodo = (index) => {
+    const handleTodo = (index: number) => {
         navigate(`/todo/${index}`);
-    }
-
-    const handleDeleteTodo = (index) => {
-        jsonData.TODO = jsonData.TODO.filter((_, i) => i != index);
-        localStorage.setItem("backup", JSON.stringify(jsonData));
-        setReload(!reload)
     };
 
+    const handleDeleteTodo = (index: number) => {
+        if (jsonData) {
+            jsonData.TODO = jsonData.TODO.filter((_, i) => i !== index);
+            localStorage.setItem("backup", JSON.stringify(jsonData));
+            setReload(!reload);
+        }
+    };
 
     useEffect(() => {
         try {
@@ -34,25 +34,27 @@ function SideMenu(){
         }
     }, [reload]);
 
-    return(
+    return (
         <>
-        <input type="checkbox" id="sideMenu-btn"></input>
-        <label id="label-sideMenu" htmlFor="sideMenu-btn" onClick={() => setChecked(!checked)}>
-            {checked ? <RxCross2 /> : <GiHamburgerMenu />}
-                </label>
+            <input type="checkbox" id="sideMenu-btn" />
+            <label id="label-sideMenu" htmlFor="sideMenu-btn" onClick={() => setChecked(!checked)}>
+                {checked ? <RxCross2 /> : <GiHamburgerMenu />}
+            </label>
             <div id="side-container">
-                    {jsonData ? jsonData.TODO.map((todo, index) => (
-                    <div key={index} className="todo-container">
-                        <p className="todo" onClick={() => handleTodo(index)}>
-                            {`${todo.date.toLocaleDateString()}`}
-                            {todo.status ? <FaFlag className={`todo-flag`} /> : <FaRegFlag className={`todo-flag`} />}
-                        </p>
-                        <TbTrashXFilled className="delete-todo" onClick={() => handleDeleteTodo(index)} />
-                    </div>
-                    )) : ""}
+                {jsonData ? (
+                    jsonData.TODO.map((todo, index) => (
+                        <div key={index} className="todo-container">
+                            <p className="todo" onClick={() => handleTodo(index)}>
+                                {todo.date.toLocaleDateString()}
+                                {todo.status ? <FaFlag className="todo-flag" /> : <FaRegFlag className="todo-flag" />}
+                            </p>
+                            <TbTrashXFilled className="delete-todo" onClick={() => handleDeleteTodo(index)} />
+                        </div>
+                    ))
+                ) : ""}
             </div>
         </>
-    )
+    );
 }
 
 export default SideMenu;

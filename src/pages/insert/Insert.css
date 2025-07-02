@@ -46,6 +46,10 @@
     }
 }
 
+.check-box-task {
+    font-size: 22px;
+}
+
 .task-container, #task-list{
     width: 100%;
     box-sizing: border-box;
@@ -53,7 +57,7 @@
 
 .task {
     font-family: "Montserrat", sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     border-radius: 5px;
     background: none;
     border: none;
