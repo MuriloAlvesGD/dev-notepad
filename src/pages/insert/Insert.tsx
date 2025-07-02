@@ -2,6 +2,8 @@ import {Link, useNavigate} from "react-router-dom"
 import {TodoList, todoFromJson, Task, TodoItem} from "../../todo";
 import { useState, useEffect} from "react";
 import { TiArrowBack } from "react-icons/ti";
+import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
+import { MdOutlineRadioButtonChecked } from "react-icons/md";
 import "./Insert.css"
 
 function Insert(){
@@ -72,12 +74,15 @@ function Insert(){
             <div id="task-list">
                 {tasks.map((task, index) => (
                     <div key={index} className="task-container">
-                        <input
-                            type="checkbox"
+                    {task.status ? <
+                            MdOutlineRadioButtonChecked
                             className="check-box-task"
-                            checked={task.status}
-                            onChange={( ) => handleTaskStatusChange(index)}
-                        />
+                            onClick={( ) => handleTaskStatusChange(index)}
+                        /> : <
+                            MdOutlineRadioButtonUnchecked
+                            className="check-box-task"
+                            onClick={( ) => handleTaskStatusChange(index)}
+                        />}
                         <input
                             type="text"
                             className="task"
