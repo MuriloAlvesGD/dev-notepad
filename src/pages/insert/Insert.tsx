@@ -6,6 +6,7 @@ import "./Insert.css"
 
 function Insert(){
     const [jsonData, setJsonData] = useState<TodoList>();
+    const [status, setStatus] = useState<boolean>();
     const [tasks, setTasks] = useState<Task[]>([{content: "", status: false}]);
     const [date, setDate] = useState<string>('');
     const navigate = useNavigate()
@@ -20,12 +21,14 @@ function Insert(){
         const newTasks = [...tasks];
         newTasks[index].status = !newTasks[index].status;
         setTasks(newTasks);
+        setStatus(!newTasks.some(task => task.status === false))
     };
 
     const handleAddTask = () => {
         const newTasks = [...tasks];
         newTasks.push(new Task("", false));
         setTasks(newTasks);
+        setStatus(false);
     };
 
     const handleDeleteTask = (index) => {
@@ -40,15 +43,12 @@ function Insert(){
 
     const handleSaveTodo = () => {
         const tasksList = tasks.filter((task) => task.content !== "");
-        const finishedCount = tasks.filter((task) => task.status !== false).length;
-        const status =
-            new Date(date).getTime() < new Date().getTime() && finishedCount < tasksList.length
-                ? "PENDING"
-                : finishedCount < tasksList.length
-                  ? "IN_PROGRESS"
-                  : "COMPLETED";
-        const todo = new TodoItem(date, status, tasksList);
+        const status = !tasksList.some(task => task.status === false);
+
+        if (tasksList.length != 0){
+            const todo = new TodoItem(date == '' ? new Date().toISOString() : date + "T23:59:00.000Z", status, tasksList);
         jsonData.TODO.push(todo);
+        }
         localStorage.setItem("backup", JSON.stringify(jsonData));
         navigate("/")
     };
@@ -64,10 +64,10 @@ function Insert(){
 
     return (
         <>
-            <header>
+            <header className="header">
                 <TiArrowBack id="return" onClick={() => handleSaveTodo()}/>
                 <input id="data" name="data" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            <span id="todoStatus">STATUS: NEW</span>
+            <span id="todoStatus">STATUS: {status ? "CONCLUÍDO" : "EM ANDAMENTO"}</span>
             </header>
             <div id="task-list">
                 {tasks.map((task, index) => (

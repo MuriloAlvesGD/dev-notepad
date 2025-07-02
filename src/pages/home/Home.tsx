@@ -17,6 +17,7 @@ function Home() {
         try {
           const todoList = todoFromJson(e.target.result)
           setJsonData(todoList);
+          updateStorages(todoList);
         } catch (error) {
           console.error("Erro ao ler o JSON:", error);
         }
@@ -25,15 +26,14 @@ function Home() {
     }
   };
 
-  function updateStorages(json: TodoList): void {
-    localStorage.setItem("backup", JSON.stringify(json))
-  }
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
-useEffect(() => {
-    if (jsonData) {
-          updateStorages(jsonData);
-    }
-}, [jsonData]);
+  function updateStorages(json: TodoList): void {
+    localStorage.setItem("backup", JSON.stringify(json));
+    refreshPage()
+  }
 
 useEffect(() => {
     try {
@@ -46,7 +46,7 @@ useEffect(() => {
 
   return (
     <>
-        <SideMenu />
+    {jsonData && <SideMenu />}
       <div className="logo">
         <SvgComponent className="dev" />
         <span>NOTE PAD</span>

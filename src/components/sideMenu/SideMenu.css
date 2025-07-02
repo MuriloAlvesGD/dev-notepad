@@ -4,11 +4,11 @@
     background-color: var(--primary-color);
     color: var(--secondary-color);
     height: 100vh;
-    width: fit-content;
+    width: 180px;
     padding: 40px 10px;
     box-sizing: border-box;
     box-shadow: 0 5px 10px black;
-    transform: translateX(-100%);
+    transform: translateX(-150%);
     transition: all 1s ease-in-out;
 }
 
@@ -17,6 +17,7 @@
 }
 #sideMenu-btn:checked ~ #side-container {
     transform: translateX(0%);
+
 }
 
 #label-sideMenu {
@@ -37,6 +38,12 @@
     color: var(--secondary-color);
 }
 
+.todo-container {
+    width: 204px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .todo {
     font-family: "Montserrat", sans-serif;
@@ -46,9 +53,43 @@
     gap: 20px;
     width: fit-content;
     margin: 20px 0 10px 20px;
-    border-bottom: 1px  dashed var(--secondary-color)
+    padding: 2px 5px 0;
+    border: 1px solid transparent;
+    border-bottom: 1px  dashed var(--secondary-color);
+    transition: all 0.2s ease-in-out;
+}
+
+.todo:hover {
+
+    border: 1px dashed var(--secondary-color);
+    border-radius: 5px;
 }
 
 .todo-flag {
     color: var(--secondary-color)
 }
+
+.delete-todo {
+    background-color: var(--primary-color);
+    padding: 5px;
+    border-radius: 100px;
+    font-size: 18px;
+    margin-top: 10px;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateX(-200%)
+}
+
+.todo-container:hover {
+    .delete-todo {
+        opacity: 1;
+        transform: translateX(-0%)
+    }
+
+    .delete-todo:hover {
+        padding: 3px;
+        font-size: 22px;
+    }
+}
+
+

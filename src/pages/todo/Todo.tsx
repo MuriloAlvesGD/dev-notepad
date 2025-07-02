@@ -1,7 +1,8 @@
 import {useState, useEffect} from "react";
-import {TodoList, TodoItem, todoFromJson} from "../../todo";
+import {TodoList, TodoItem, Task, todoFromJson} from "../../todo";
 import { useParams, useNavigate, Link} from 'react-router-dom';
 import { TiArrowBack } from "react-icons/ti";
+import "../insert/Insert.css"
 
 function Todo(){
     const [jsonData, setJsonData] = useState<TodoList>();
@@ -21,12 +22,14 @@ function Todo(){
         const newTasks = [...tasks];
         newTasks[index].status = !newTasks[index].status;
         setTasks(newTasks);
+        setStatus(!newTasks.some(task => task.status === false))
     };
 
     const handleAddTask = () => {
         const newTasks = [...tasks];
         newTasks.push(new Task("", false));
         setTasks(newTasks);
+        setStatus(false);
     };
 
     const handleDeleteTask = (index) => {
@@ -41,9 +44,14 @@ function Todo(){
 
     const handleSaveTodo = () => {
         const tasksList = tasks.filter((task) => task.content !== "");
-        const status = tasks.filter((task) => task.status !== false).length === tasks.length;
-        const newTodo = new TodoItem(date, status, tasksList);
-        jsonData.TODO[index] = newTodo;
+        const status = !tasksList.some(task => task.status === false);
+
+        if (tasksList.length == 0){
+            jsonData.TODO = jsonData.TODO.filter((_, i) => i != index)
+        } else {
+            const newTodo = new TodoItem(date == '' ? new Date().toISOString() : date + "T23:59:00.000Z", status, tasksList);
+            jsonData.TODO[index] = newTodo;
+        }
         localStorage.setItem("backup", JSON.stringify(jsonData));
         navigate("/")
     };
@@ -66,11 +74,11 @@ function Todo(){
     return (
         <>
         {tasks ?
-         <div>
-            <header>
+         <div style={{ width: '100%' }}>
+            <header className="header">
                 <TiArrowBack id="return" onClick={() => handleSaveTodo()}/>
                 <input id="data" name="data" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            <span id="todoStatus">{status ? "status: Y" : "status: N"}</span>
+            <span id="todoStatus">STATUS: {status ? "CONCLUÍDO" : "EM ANDAMENTO"}</span>
             </header>
             <div id="task-list">
                 {tasks.map((task, index) => (

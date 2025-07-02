@@ -1,9 +1,3 @@
-export enum TodoStatus {
-    PENDING = "PENDING",
-    COMPLETED = "COMPLETED",
-    IN_PROGRESS = "IN_PROGRESS"
-}
-
 export class Task {
     content: string;
     status: boolean;
@@ -21,10 +15,10 @@ export class Task {
 
 export class TodoItem {
     date: Date;
-    status: TaskStatus;
+    status: boolean;
     tasks: Task[];
 
-    constructor(date: Date, status: TaskStatus, tasks: Task[]) {
+    constructor(date: Date, status: boolean, tasks: Task[]) {
         this.date = date;
         this.status = status;
         this.tasks = tasks;
@@ -33,7 +27,7 @@ export class TodoItem {
     // Método para converter um objeto JSON em uma instância de TodoItem
     static fromJSON(json: any): TodoItem {
         const date = new Date(json.date);
-        const status = json.status as TodoStatus; // Assegura que o status é do tipo TaskStatus
+        const status = json.status;
         const tasks = json.tasks.map(Task.fromJSON); // Mapeia as tarefas para instâncias de Task
         return new TodoItem(date, status, tasks);
     }

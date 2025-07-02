@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
@@ -10,9 +12,6 @@ body {
   color-scheme: light dark;
   --primary-color: #fffae3;
   --secondary-color: #282e36;
-  --pending-color: #ffe42e;
-  --progress-color: #9dff2e;
-  --delayed-color: #ff602e;
 
   color: var(--primary-color);
   background: var(--secondary-color);
@@ -32,7 +31,7 @@ body {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  body {
   --primary-color: #282e36;
   --secondary-color: #fffae3;
   }
