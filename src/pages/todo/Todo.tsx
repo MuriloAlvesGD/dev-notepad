@@ -6,7 +6,7 @@ import { MdOutlineRadioButtonUnchecked, MdOutlineRadioButtonChecked } from "reac
 import "../insert/Insert.css";
 
 function Todo() {
-    const [jsonData, setJsonData] = useState<TodoList | null>(null);
+    const [jsonData, setJsonData] = useState<TodoList>(todoFromJson());
     const [status, setStatus] = useState<boolean>(false);
     const [date, setDate] = useState<string>('');
     const [tasks, setTasks] = useState<Task[]>([{ content: "", status: false }]);

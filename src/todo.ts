@@ -42,6 +42,10 @@ export class TodoList {
 }
 
 export function todoFromJson(json: any): TodoList {
-        const todoItems = JSON.parse(json).TODO.map(TodoItem.fromJSON); // Mapeia os itens para instâncias de TodoItem
-        return new TodoList(todoItems);
+        try {
+            const todoItems = JSON.parse(json).TODO.map(TodoItem.fromJSON); // Mapeia os itens para instâncias de TodoItem
+            return new TodoList(todoItems);
+        } catch (error) {
+            return new TodoList([]);
+        }
     }

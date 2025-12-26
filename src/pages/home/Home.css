@@ -14,14 +14,31 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
 }
 
-.logo > :not(span) {
-  height: 100%;
-  width: 100%;
+.logo > #dev {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  font-weight: 700;
+  font-size: 5rem;
+  line-height: 60px;
 }
 
-.logo > span {
+.logo > #dev::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: var(--primary-color);
+  width: 10px;
+  height: 10px;
+  left: 0;
+  bottom: 0;
+  transform: translate(-100%, -20%);
+}
+
+.logo > :not(#dev) {
   width: 100%;
   font-weight: 700;
   font-size: 2rem;

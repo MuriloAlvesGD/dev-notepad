@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
-import SvgComponent from "../../assets/SvgComponent";
 import { TodoList, todoFromJson } from "../../todo";
 import { Link } from "react-router-dom";
 import SideMenu from "../../components/sideMenu/SideMenu";
@@ -55,8 +54,7 @@ function Home() {
         <>
             {jsonData && <SideMenu />}
             <div className="logo">
-
-                <SvgComponent/>
+                <span id="dev">DEV</span>
                 <span>NOTE PAD</span>
             </div>
             <Link to="/insert" className="classic-btn">+ TO-DO-LIST</Link>
